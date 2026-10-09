@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JARVIS // Hand-Controlled Car Visualizer</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+      "@mediapipe/tasks-vision": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/+esm"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="dot"></span> J.A.R.V.I.S. // CAR BAY 01</div>
+    <div class="topmeta"><span id="fps">-- FPS</span><span id="status">booting…</span></div>
+  </header>
+
+  <main class="layout">
+    <section class="viewport-wrap">
+      <div id="scene-container"></div>
+      <div class="viewport-hud top-left">MODEL: <b>PROTO-CAR v1</b> · drag mouse also works</div>
+      <div class="viewport-hud bottom-left">RIGHT-OPEN: rotate · PINCH: zoom · LEFT-FIST: pan · BOTH-OPEN spread: explode</div>
+    </section>
+
+    <aside class="panel">
+      <div class="card">
+        <div class="card-title">OPTICS — HAND TRACKING</div>
+        <div class="pip">
+          <video id="webcam" playsinline muted></video>
+          <canvas id="overlay"></canvas>
+        </div>
+        <button id="btn-camera" class="btn primary">START CAMERA</button>
+        <div id="gesture-readout" class="readout">waiting…</div>
+        <button id="btn-swap" class="btn ghost">SWAP HANDS</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">CONTROL DECK</div>
+        <button id="btn-xray" class="btn">X-RAY</button>
+        <button id="btn-spin" class="btn">AUTO-SPIN</button>
+        <button id="btn-reset" class="btn ghost">RESET VIEW</button>
+        <label class="slider">EXPLODE <span class="hint">(dbl-click to return to hands)</span>
+          <input id="slider-explode" type="range" min="0" max="100" value="0" />
+        </label>
+        <label class="slider">SENSITIVITY
+          <input id="slider-sens" type="range" min="20" max="250" value="100" />
+        </label>
+        <label class="slider">SMOOTHING
+          <input id="slider-smooth" type="range" min="0" max="90" value="55" />
+        </label>
+      </div>
+
+      <div class="card" id="drop-zone">
+        <div class="card-title">UPLOAD MODEL (later)</div>
+        <div class="drop">drop <b>.glb / .obj / .stl</b> anywhere<br/>or click to browse</div>
+        <input id="file-upload" type="file" accept=".glb,.gltf,.obj,.stl" hidden />
+      </div>
+    </aside>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
